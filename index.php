@@ -38,10 +38,10 @@ $lista_atores = $ator_obj->get_atores();
                 <img src="https://cdn-icons-png.flaticon.com/512/206/206982.png" height="28" alt="CoolBrand">
             </a>
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Início</a>
+                <a class="navbar-brand" href="index.php">Início</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Atores</a></li>
+                <li class="active"><a href="index.php">Atores</a></li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Prêmiações Anteriores
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
