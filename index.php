@@ -1,10 +1,12 @@
 <?php
 
-// Definindo uma constante do tipo int
-define("QTD_QUESTOES", 1);
+require_once('Ator.php'); // importa o arquivo Ator.php
+require_once('config_db.php');
 
-// Definindo uma constante do tipo String
-define("ASSUNTO", 'PHP & MySQL - obtendo os elementos do banco de dados.');
+$ator_obj = new Ator($connection); // cria um objeto da classe Ator
+
+ // chama o método get_atores()
+$lista_atores = $ator_obj->get_atores();
 
 ?>
 
@@ -12,64 +14,82 @@ define("ASSUNTO", 'PHP & MySQL - obtendo os elementos do banco de dados.');
 <html lang="pt-br">
 
 <head>
-  <title>Página Inicial</title>
-  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/e/e8/Education%2C_Studying%2C_University%2C_Alumni_-_icon.png">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="css/menu.css">
+    <title>Página Inicial</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/206/206982.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Bootstrap Navbar -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- Biblioteca para gerar o card -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/profile_card.css">
 </head>
 
 <body>
 
-  <div class="container p-3 my-3 border">
-
-    <div class="card mb-3">
-      <div class="card-header">
-        <div class="row no-gutters">
-          <div class="col-2 pt-2">
-            <a href="https://www.ifpb.edu.br/"><img src="img/ifpb.png" class="img-fluid" alt="IFPB"></a>
-          </div>
-          <div class="col text-center">
-            <h2 class="card-title">Instituto Federal da Paraíba</h2>
-            <h4 class="card-subtitle">Desenvolvimento de Aplicações Web II</h4>
-            <p class="card-text my-1">
-              <strong>Professor:</strong> Felipe Barbosa Araújo Ramos.
-            </p>
-            <p class="card-text">
-              <strong>Assunto:</strong> <?= ASSUNTO ?>
-            </p>
-            <p class="card-text mt-n2 mb-n3">
-              <small class="text-muted">felipe.ramos@ifpb.edu.br</small>
-            </p>
-          </div>
+    <!-- HTML Bootstrap Navbar para gerar o menu superior -->
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand">
+                <img src="https://cdn-icons-png.flaticon.com/512/206/206982.png" height="28" alt="CoolBrand">
+            </a>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Início</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Atores</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Prêmiações Anteriores
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">2021</a></li>
+                        <li><a href="#">2020</a></li>
+                        <li><a href="#">2019</a></li>
+                    </ul>
+                </li>
+                <li><a href="pagina_de_cadastro.php">Cadastrar ator</a></li>
+                <li><a href="#">Sobre</a></li>
+            </ul>
+            <form class="navbar-form navbar-left" action="/action_page.php">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Pesquisar..." name="search">
+                </div>
+                <button type="submit"><span class="glyphicon glyphicon-search"></span></button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Cadastrar-se</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
         </div>
-      </div>
+    </nav>
+    <!-- HTML Bootstrap Navbar para gerar o menu superior -->
+
+    <div class="container">
+
+        <!-- Início do foreach para gerar vários cards de atores dinamicamente-->
+        <?php foreach ($lista_atores as $ator) : ?>
+
+            <!-- HTML para gerar um card de um ator-->
+            <div class="card card0" style="background-image: url('<?php echo $ator['img']; ?>')">
+                <div class="border">
+                    <h2><?= $ator['nome']; ?></h2>
+                    <div class="icons">
+                        <a class="fa fa-home" href="index.php"></a>
+                        <a class="fa fa-instagram" aria-hidden="true" href="<?= $ator['insta']; ?>" target="_blank"></a>
+                        <a class="fa fa-wikipedia-w" aria-hidden="true" href="<?= $ator['wiki']; ?>" target="_blank"></a>
+                        <a class="fa fa-imdb" aria-hidden="true" href="<?= $ator['imdb']; ?>" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- HTML para gerar um card de um ator-->
+
+        <?php endforeach; ?>
+        <!-- Fim do foreach para gerar vários cards de atores dinamicamente-->
+
     </div>
-
-    <p><strong>Atenção!</strong> Cada card abaixo representa uma questão que deve ser resolvida.</p>
-
-    <div class="card-columns">
-      <!-- Início do for para gerar vários cards de questões -->
-      <?php for ($i = 1; $i <= QTD_QUESTOES; $i++) : ?>
-
-        <!-- HTML para gerar um card de uma questão-->
-        <div class="card bg-light">
-          <div class="card-body text-center">
-            <p class="card-text"><a href="q<?php echo $i; ?>.php"><strong>Questão <?php echo $i; ?></strong></a></p>
-          </div>
-        </div>
-        <!-- HTML para gerar um card de uma questão-->
-
-      <?php endfor; ?>
-      <!-- Fim do for para gerar vários cards de questões -->
-
-    </div>
-  </div>
 
 </body>
 
