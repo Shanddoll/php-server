@@ -12,4 +12,3 @@ $connection->set_charset('utf8');
 if (!$connection) {
     die("FALHA NA CONEXÃO ". mysqli_connect_error());
 }
-echo "Conectado!!!";
