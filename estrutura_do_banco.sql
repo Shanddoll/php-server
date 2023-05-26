@@ -19,8 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `atoresDB`
 --
-CREATE DATABASE IF NOT EXISTS `atoresDB` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `atoresDB`;
+-- CREATE DATABASE IF NOT EXISTS `atoresDB` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- USE `atoresDB`;
 
 -- --------------------------------------------------------
 
