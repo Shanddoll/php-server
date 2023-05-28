@@ -3,17 +3,20 @@ require_once('valida_dados.php');
 require_once('Ator.php'); // importa o arquivo Ator.php
 require_once('config_db.php');
 
+
 $ator_obj = new Ator($connection);
+$id_ator = validar_dados($_GET['id']);
+$ator = $ator_obj->get_ator_by_id($id_ator);
 
 
-if (isset($_POST['cadastrar'])){
-    $nome = validar_dados($_POST['nome']);
-    $insta = validar_dados($_POST['insta']);
-    $img = validar_dados($_POST['img']);
-    $wiki = validar_dados($_POST['wiki']);  
-    $imdb = validar_dados($_POST['imdb']); 
-    
-    $ator_obj->insert_ator($nome, $insta, $img, $wiki, $imdb);
+if (isset($_GET['editar'])) {
+    $nome = validar_dados($_GET['nome']);
+    $insta = validar_dados($_GET['insta']);
+    $img = validar_dados($_GET['img']);
+    $wiki = validar_dados($_GET['wiki']);
+    $imdb = validar_dados($_GET['imdb']);
+
+    $ator_obj->update_ator($id_ator, $nome, $insta, $img, $wiki, $imdb);
 }
 
 ?>
@@ -22,7 +25,7 @@ if (isset($_POST['cadastrar'])){
 <html lang="pt-br">
 
 <head>
-    <title>Cadastro de Ator</title>
+    <title>Edição de Ator</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/206/206982.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -73,41 +76,44 @@ if (isset($_POST['cadastrar'])){
     </nav>
     <!-- HTML Bootstrap Navbar para gerar o menu superior -->
 
-    <form method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
+    <form method="get" action="">
+        
+        <input type="hidden" name='id' value="<?= $id_ator?>">
+        
         <div class="container">
-            <h1>Cadastro de Ator</h1>
-            <p>Por favor, preencha este formulário para inserir um novo ator no banco de dados.</p>
+            <h1>Editar Ator</h1>
+            <p>Por favor, preencha este formulário para editar o ator no banco de dados.</p>
             <hr>
 
             <div class="form-group">
                 <label for="nome"><b>Nome </b></label>
-                <input type="text" placeholder="Insira o nome do ator" name="nome" id="nome" required>
+                <input type="text" placeholder="Insira o nome do ator" value="<?= $ator['nome']?>" name="nome" id="nome" required>
             </div>
 
             <div class="form-group">
                 <label for="insta"><b>Instagram</b></label>
-                <input type="text" placeholder="Insira o Instagram do ator" name="insta" id="insta" required>
+                <input type="text" placeholder="Insira o Instagram do ator" value="<?= $ator['insta']?>" name="insta" id="insta" required>
             </div>
 
             <div class="form-group">
                 <label for="img"><b>Foto</b></label>
-                <input type="text" placeholder="Insira a foto do ator" name="img" id="img" required>
+                <input type="text" placeholder="Insira a foto do ator" value="<?= $ator['img']?>" name="img" id="img" required>
             </div>
 
             <div class="form-group">
                 <label for="wiki"><b>Link da Wikpédia</b></label>
-                <input type="text" placeholder="Insira o link da wikipédia" name="wiki" id="wiki" required>
+                <input type="text" placeholder="Insira o link da wikipédia" value="<?= $ator['wiki']?>" name="wiki" id="wiki" required>
             </div>
 
             <div class="form-group">
                 <label for="imdb"><b>Link do IMDB</b></label>
-                <input type="text" placeholder="Insira o link do IMDB" name="imdb" id="imdb" required>
+                <input type="text" placeholder="Insira o link do IMDB" value="<?= $ator['imdb']?>" name="imdb" id="imdb" required>
             </div>
 
             <hr>
             <p>Este site é protegido pelo hCaptcha e está sujeito a sua <a href="#">Politica de Privacidade</a> e <a href="#">Termos de Uso</a>.</p>
 
-            <button type="submit" class="registerbtn" name="cadastrar">Cadastrar</button>
+            <button type="submit" class="registerbtn" name="editar">Editar</button>
         </div>
 
 

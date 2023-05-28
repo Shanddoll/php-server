@@ -1,7 +1,7 @@
 <?php
-
 require_once('Ator.php'); // importa o arquivo Ator.php
 require_once('config_db.php');
+
 
 $ator_obj = new Ator($connection); // cria um objeto da classe Ator
 
@@ -77,7 +77,7 @@ $lista_atores = $ator_obj->get_atores();
                 <div class="border">
                     <h2><?= $ator['nome']; ?></h2>
                     <div class="icons">
-                        <a class="fa fa-home" href="index.php"></a>
+                        <a class="fa fa-edit" aria-hidden="true" href="pagina_de_edicao.php?id=<?=$ator['id']?>"></a>
                         <a class="fa fa-instagram" aria-hidden="true" href="<?= $ator['insta']; ?>" target="_blank"></a>
                         <a class="fa fa-wikipedia-w" aria-hidden="true" href="<?= $ator['wiki']; ?>" target="_blank"></a>
                         <a class="fa fa-imdb" aria-hidden="true" href="<?= $ator['imdb']; ?>" target="_blank"></a>
